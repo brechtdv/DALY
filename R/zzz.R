@@ -45,8 +45,11 @@ function(...){
 .onLoad <-
 function(...){
   ## Create 'DALY' database
-  if (! "DALY" %in% search())
-    attach(NULL, pos = length(search()) - 1, name = "DALY")
+  ## code inspired from Rcmdr
+  if (! "DALY" %in% search()){
+    DALYattach <- base::attach
+    DALYattach(NULL, pos = length(search()) - 1, name = "DALY")
+  }
 
   ## Create list of active windows
   assign("active.windows", list(), pos = "DALY")
