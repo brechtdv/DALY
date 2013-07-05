@@ -1,0 +1,12 @@
+useDynLib(DALY)
+
+importFrom(stats, aggregate)
+
+export(DALYcalculator, DALYmanual, DALYoptions, getDALY, readDALYdata, reset,
+       saveDALYdata, sensitivity, setDALYexample, setData, setLifeExp, setPop,
+	   setStdLE)
+
+S3method(aggregate, DALY)
+S3method(print, DALY)
+S3method(summary, DALY)
+S3method(hist, DALY)
