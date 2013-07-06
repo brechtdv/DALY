@@ -50,7 +50,7 @@ function(){
          envir = DALYenv())
 	
 	## Cleanup 'DALY' database
-    rm(list = "DALY_data", pos = "DALY")
+    rm(list = "DALY_data", envir = DALYenv())
 
     ## Exit message
     tkmessageBox(title = "DALY calculator",
