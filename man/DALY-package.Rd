@@ -21,7 +21,7 @@
     Package: \tab DALY\cr
     Type: \tab Package\cr
     Version: \tab 1.2.0\cr
-    Date: \tab 2013-07-05\cr
+    Date: \tab 2013-07-06\cr
     Depends: \tab R (>= 3.0.0), tcltk\cr
     License: \tab GPL (>= 2)\cr
     SystemRequirements: \tab Tcl/Tk (>= 8.5), Tktable (>= 2.9)\cr
