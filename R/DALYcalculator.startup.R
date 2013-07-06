@@ -165,5 +165,5 @@ function(){
 
   ## Clean-up 'DALY' database
   rm(list = paste("outcome", seq(8), "Entry", sep = ""),
-     envir = as.environment("DALY"))
+     envir = DALYenv())
 }

@@ -20,8 +20,8 @@ function(file = NULL, example = NULL){
         stop("The file you selected is not an '.RData' file", call. = FALSE)
       }
 
-      ## Try loading data into current frame ## envir ???
-      tryCatch(load(fileName, envir = as.environment("DALY")),
+      ## Try loading data into current frame
+      tryCatch(load(fileName, envir = DALYenv()),
                silent = TRUE,
                error =
                  function(e){
@@ -37,7 +37,7 @@ function(file = NULL, example = NULL){
       ## Load example dataset
       examples <- c("Neurocysticercosis", "Toxoplasmosis")
       DALY_name <- paste("DALY_", examples[example], sep = "")
-      data(list = DALY_name, envir = as.environment("DALY"))
+      data(list = DALY_name, envir = DALYenv())
     }
 
     ## Reset DALY Calculator
@@ -77,7 +77,7 @@ function(file = NULL, example = NULL){
 	
     ## Clean-up 'DALY' database
     rm(list = DALY_name,
-       envir = as.environment("DALY"))
+       envir = DALYenv())
 
     ## Status message
     tkmessageBox(message = "Data successfully loaded",

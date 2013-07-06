@@ -1,6 +1,139 @@
-## (1) Startup & Exit functions
-## (2) Assign & Get functions (adapted from John Fox's Rcommander)
+## (1) Assign & Get functions (adapted from John Fox's Rcommander)
+## (2) Startup & Exit functions
 ## (3) Window handlers
+
+## create DALY environment
+.DALYenv <- new.env()
+
+## return DALY environment
+DALYenv <- function() .DALYenv
+
+## assign object to DALY environment
+DALYassign <-
+function(x, val, row = NULL, col = NULL, item = NULL, ...){
+  if (is.null(row) & is.null(col) & is.null(item)){
+    assign(x, value = val, envir = DALYenv(), ...)
+  } else if (is.null(row) & is.null(col)) {
+    eval(parse(text = paste(x, "[['", item, "']] <- ", val, sep = "")),
+         envir = DALYenv())
+  } else {
+    eval(parse(text = paste(x, "[", row, ",", col, "] <- ", val, sep = "")),
+         envir = DALYenv())
+  }
+}
+
+## get object from DALY environment
+DALYget <-
+function(x, row = NULL, col = NULL, ...){
+  if (is.null(row) & is.null(col)){
+    get(x, envir = DALYenv(), inherits = FALSE, ...)
+  } else {
+    get(x, envir = DALYenv(), inherits = FALSE, ...)[[row, col]]
+  }
+}
+
+## get tclvalue
+DALYtclvalue <-
+function(x){
+  ## tclVar versus tclArray
+  if (!any(class(DALYget(x)) == "tclArray")){
+    out <- tclvalue(DALYget(x))
+    if (grepl("^[[:digit:]]*\\.?[[:digit:]]+$", out))
+	  out <- as.numeric(out)
+  } else {
+    dim <- names(DALYget(x))[names(DALYget(x)) != "active"]
+    dim <- strsplit(dim, ",")
+    row <- max(c(as.numeric(unlist(lapply(dim, head, 1L))), 1))  # data win !
+    col <- max(as.numeric(unlist(lapply(dim, tail, 1L))))
+    out <- matrix(nrow = row, ncol = col)
+    for (i in seq(row)){
+      for (j in seq(col)){
+        out[i, j] <- ifelse(is.null(DALYget(x, i, j)),
+                            NA, as.numeric(DALYget(x, i, j)))
+      }
+    }
+  }
+  return(out)
+}
+
+## assign from R:tmp --> Tcl:x
+DALYupdate <-
+function(x, tmp = DALYget(substr(x, 2, nchar(x)))){
+  row <- nrow(tmp)
+  col <- ncol(tmp)
+
+  ## tclVar versus tclArray
+  if (is.null(row) & is.null(col)){
+    eval(parse(text = paste("tcltk::tclvalue(", x, ") <- '",
+                            tmp, "'", sep = "")),
+         envir = DALYenv())
+  } else {
+    for (i in seq(row)){
+      for (j in seq(col)){
+        new <- ifelse(is.na(tmp[i, j]), "NULL", tmp[i, j])
+        eval(parse(text = paste(x, "[[", i, ",", j, "]] <- ", new, sep = "")),
+             envir = DALYenv())
+      }
+    }
+  }
+}
+
+## assign from Tcl:x -> R:tmp
+DALYsave <-
+function(x){
+  DALYassign(substr(x, 2, nchar(x)), DALYtclvalue(x))
+}
+
+## exists() in DALY environment
+DALYexists <-
+function(x, ...){
+  return(exists(x, envir = DALYenv(), ...))
+}
+
+## eval() in DALY environment
+DALYeval <-
+function(x, ...){
+  eval(x, envir = DALYenv(), ...)
+}
+
+DALYcheck <-
+function(x, allow.null){
+  ## tclVar versus tclArray
+  if (!any(class(DALYget(x)) == "tclArray")){
+    out <- is.numeric(DALYtclvalue(x))
+  } else {
+    dim <- names(DALYget(x))[names(DALYget(x)) != "active"]
+    dim <- strsplit(dim, ",")
+    row <- max(c(as.numeric(unlist(lapply(dim, head, 1L))), 1))  # data win !
+    col <- max(as.numeric(unlist(lapply(dim, tail, 1L))))
+    out <- matrix(nrow = row, ncol = col)
+    for (i in seq(row)){
+      for (j in seq(col)){
+        new <- grepl("^[[:digit:]]*\\.?[[:digit:]]+$", DALYget(x, i, j))
+        out[i, j] <- ifelse(length(new) == 0, allow.null, new)
+      }
+    }
+    out <- all(out == TRUE)
+  }
+  return(invisible(out))
+}
+
+DALYtxt <-
+function(x){
+  if (x == ".it") return("Iterations")
+  if (x == ".pop") return("Population table")
+  if (x == ".LE") return("Life Expectancy table")
+  if (grepl("inc", x)) return("Incidence table")
+  if (grepl("trt", x)) return("Treatment table")
+  if (grepl("ons", x)) return("Onset table")
+  if (grepl("dur", x)) return("Duration table")
+  if (grepl("DWt", x)) return("DW-treated table")
+  if (grepl("DWn", x)) return("DW-untreated table")
+  if (grepl("mrt", x)) return("Mortality table")
+  if (grepl("lxp", x)) return("Average age at death table")
+}
+
+##===========================================================================
 
 .onAttach <-
 function(...){
@@ -44,141 +177,8 @@ function(...){
 
 .onLoad <-
 function(...){
-  ## Create 'DALY' database
-  ## code inspired from Rcmdr
-  if (! "DALY" %in% search()){
-    DALYattach <- base::attach
-    DALYattach(NULL, pos = length(search()) - 1, name = "DALY")
-  }
-
   ## Create list of active windows
-  assign("active.windows", list(), pos = "DALY")
-}
-
-.onUnload <-
-function(...){
-  ## Remove 'DALY' database
-  detach(DALY)
-}
-
-##===========================================================================
-
-DALYassign <-
-function(x, val, row = NULL, col = NULL, item = NULL, ...){
-  if (is.null(row) & is.null(col) & is.null(item)){
-    assign(x, value = val, pos = "DALY", ...)
-  } else if (is.null(row) & is.null(col)) {
-    eval(parse(text = paste(x, "[['", item, "']] <- ", val, sep = "")),
-         envir = as.environment("DALY"))
-  } else {
-    eval(parse(text = paste(x, "[", row, ",", col, "] <- ", val, sep = "")),
-         envir = as.environment("DALY"))
-  }
-}
-
-DALYget <-
-function(x, row = NULL, col = NULL, ...){
-  if (is.null(row) & is.null(col)){
-    get(x, pos = "DALY", inherits = FALSE, ...)
-  } else {
-    get(x, pos = "DALY", inherits = FALSE, ...)[[row, col]]
-  }
-}
-
-DALYtclvalue <-
-function(x){
-  ## tclVar versus tclArray
-  if (!any(class(DALYget(x)) == "tclArray")){
-    out <- tclvalue(DALYget(x))
-    if (grepl("^[[:digit:]]*\\.?[[:digit:]]+$", out))
-	  out <- as.numeric(out)
-  } else {
-    dim <- names(DALYget(x))[names(DALYget(x)) != "active"]
-    dim <- strsplit(dim, ",")
-    row <- max(c(as.numeric(unlist(lapply(dim, head, 1L))), 1))  # data win !
-    col <- max(as.numeric(unlist(lapply(dim, tail, 1L))))
-    out <- matrix(nrow = row, ncol = col)
-    for (i in seq(row)){
-      for (j in seq(col)){
-        out[i, j] <- ifelse(is.null(DALYget(x, i, j)),
-                            NA, as.numeric(DALYget(x, i, j)))
-      }
-    }
-  }
-  return(out)
-}
-
-DALYupdate <-  # from R:tmp --> Tcl:x
-function(x, tmp = DALYget(substr(x, 2, nchar(x)))){
-  row <- nrow(tmp)
-  col <- ncol(tmp)
-
-  ## tclVar versus tclArray
-  if (is.null(row) & is.null(col)){
-    eval(parse(text = paste("tcltk::tclvalue(", x, ") <- '",
-                            tmp, "'", sep = "")),
-         envir = as.environment("DALY"))
-  } else {
-    for (i in seq(row)){
-      for (j in seq(col)){
-        new <- ifelse(is.na(tmp[i, j]), "NULL", tmp[i, j])
-        eval(parse(text = paste(x, "[[", i, ",", j, "]] <- ", new, sep = "")),
-             envir = as.environment("DALY"))
-      }
-    }
-  }
-}
-
-DALYsave <-  # from Tcl:x --> R:tmp
-function(x){
-  DALYassign(substr(x, 2, nchar(x)), DALYtclvalue(x))
-}
-
-DALYexists <-
-function(x, ...){
-  return(exists(x, envir = as.environment("DALY"), ...))
-}
-
-DALYeval <-
-function(x, ...){
-  eval(x, envir = as.environment("DALY"), ...)
-}
-
-DALYcheck <-
-function(x, allow.null){
-  ## tclVar versus tclArray
-  if (!any(class(DALYget(x)) == "tclArray")){
-    out <- is.numeric(DALYtclvalue(x))
-  } else {
-    dim <- names(DALYget(x))[names(DALYget(x)) != "active"]
-    dim <- strsplit(dim, ",")
-    row <- max(c(as.numeric(unlist(lapply(dim, head, 1L))), 1))  # data win !
-    col <- max(as.numeric(unlist(lapply(dim, tail, 1L))))
-    out <- matrix(nrow = row, ncol = col)
-    for (i in seq(row)){
-      for (j in seq(col)){
-        new <- grepl("^[[:digit:]]*\\.?[[:digit:]]+$", DALYget(x, i, j))
-        out[i, j] <- ifelse(length(new) == 0, allow.null, new)
-      }
-    }
-    out <- all(out == TRUE)
-  }
-  return(invisible(out))
-}
-
-DALYtxt <-
-function(x){
-  if (x == ".it") return("Iterations")
-  if (x == ".pop") return("Population table")
-  if (x == ".LE") return("Life Expectancy table")
-  if (grepl("inc", x)) return("Incidence table")
-  if (grepl("trt", x)) return("Treatment table")
-  if (grepl("ons", x)) return("Onset table")
-  if (grepl("dur", x)) return("Duration table")
-  if (grepl("DWt", x)) return("DW-treated table")
-  if (grepl("DWn", x)) return("DW-untreated table")
-  if (grepl("mrt", x)) return("Mortality table")
-  if (grepl("lxp", x)) return("Average age at death table")
+  assign("active.windows", list(), envir = DALYenv())
 }
 
 ##===========================================================================
