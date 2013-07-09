@@ -17,4 +17,4 @@ To install the development version of DALY, it is easiest to use the `devtools` 
 
     install.packages("devtools")  # if needed..
     library(devtools)
-    install_github("DALY")
+    install_github("DALY", "brechtdv")
