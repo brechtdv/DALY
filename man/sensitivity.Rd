@@ -142,10 +142,11 @@ x <- getDALY()
 ##= perform DALY sensitivity analysis =====================
 
 ## default sensitivity analysis
-sensitivity(x)
+sa <- sensitivity(x)
+print(sa)
 
 ## tornado plot of default sensitivity analysis
-plot(sensitivity(x))
+plot(sa, show_values = TRUE)
 
 ## standardized regression coefficients -------------------
 sensitivity(x, method = "src", rank = FALSE, mapped = TRUE)
