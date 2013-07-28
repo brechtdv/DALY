@@ -101,6 +101,7 @@
 	\item{\code{\link{setStdLE}} sets the standard life expectancy}
 	\item{\code{\link{setData}} opens a \sQuote{Data} window}
     \item{\code{\link{getDALY}} initiates the DALY calculation process and returns the simulated results}
+	\item{\code{\link{sensitivity}} performs DALY sensitivity analysis}
   }
   
   See \code{\link{DALYmanual}}
