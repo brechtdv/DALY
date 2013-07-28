@@ -19,7 +19,7 @@
   \item{prob }{Probability span by printed credibility intervals;
                defaults to \code{0.95}}
   \item{digits }{Number of decimals to be printed; defaults to \code{0}}
-  \item{\dots }{Additinoal arguments to be passed to \code{print}}
+  \item{\dots }{Additional arguments to be passed to \code{print}}
 }
 
 \details{
