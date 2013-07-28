@@ -9,4 +9,8 @@ export(DALYcalculator, DALYmanual, DALYoptions, getDALY, readDALYdata, reset,
 S3method(aggregate, DALY)
 S3method(print, DALY)
 S3method(summary, DALY)
+S3method(plot, DALY)
 S3method(hist, DALY)
+
+S3method(print, DALY_sensitivity)
+S3method(plot, DALY_sensitivity)
