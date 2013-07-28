@@ -36,7 +36,7 @@
 \author{\email{Brecht.Devleesschauwer@UGent.be}}
 
 \seealso{
-  \code{\link{aggregate.DALY}}\cr
+  \code{\link{plot.DALY}}\cr
   
   \code{\link{DALYcalculator}}
   (for a brief description of the \emph{DALY Calculator})\cr
