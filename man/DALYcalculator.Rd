@@ -93,7 +93,7 @@
 }
 
 \seealso{
-  A (limited) command-line interface to the \emph{DALY Calculator}
+  A command-line interface to the \emph{DALY Calculator}
   is available through the following functions:\cr
   \itemize{
     \item{\code{\link{setPop}} opens the \sQuote{Population} window}
@@ -102,6 +102,7 @@
 	\item{\code{\link{setData}} opens a \sQuote{Data} window}
     \item{\code{\link{getDALY}} initiates the DALY calculation process and returns the simulated results}
 	\item{\code{\link{sensitivity}} performs DALY sensitivity analysis}
+	\item{\code{\link{DALY_list}} merges different DALY objects}
   }
   
   See \code{\link{DALYmanual}}
