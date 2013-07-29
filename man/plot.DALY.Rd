@@ -8,7 +8,7 @@
 }
 
 \usage{
-\method{plot}{DALY}(x, prob = 0.95, sort = TRUE, 
+\method{plot}{DALY}(x, prob = 0.95, sort = TRUE, names = NULL,
      bars = TRUE, col = c("grey90", "white"),
      error_bars = TRUE, eb_col = "black",
      grid = TRUE, \dots)
@@ -20,6 +20,9 @@
               defaults to \code{0.95}}
   \item{sort }{Should values be sorted from high to low?
                defaults to \code{TRUE}}
+  \item{names }{Vector of names to be plotted on the y-axis. If this argument
+                is \code{NULL}, the default, then the names are taken from the
+                \code{name} elements of the outcomes}
   \item{bars }{Should YLL/YLD bars be plotted?
                defaults to \code{TRUE}}
   \item{col }{Color of YLL and YLD barplot;
@@ -30,7 +33,7 @@
                  defaults to black}
   \item{grid }{Should a vertical grid be plotted?
                defaults to \code{TRUE}}
-  \item{\dots }{Additional arguments to be passed to \code{\link{plot}}}
+  \item{\dots }{Additional arguments to be passed to \code{\link{barplot}}}
 }
 
 \details{
@@ -43,7 +46,7 @@
 
 \seealso{
   \code{\link{hist.DALY}}\cr
-  
+
   \code{\link{DALYcalculator}}
   (for a brief description of the \emph{DALY Calculator})\cr
   \code{\link{DALYmanual}}
