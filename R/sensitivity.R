@@ -113,8 +113,8 @@ function(x, alpha = 0.05, main = "Sensitivity analysis",
   par(mar = c(4, 6, 2, 2) + .5)
   ifelse(
     show_values,
-    xlim <- c(min(est), max(est) * 1.1),
-    xlim <- range(est))
+    xlim <- c(0, max(est) * 1.1),
+    xlim <- c(0, max(est)))
   bp <-
     barplot.default(est, horiz = T, las = 1,
                     main = main, xlab = xlab, xlim = xlim, ...)
