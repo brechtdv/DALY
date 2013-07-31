@@ -1,8 +1,8 @@
 Package: DALY
 Type: Package
 Title: DALY Calculator - A GUI for stochastic DALY calculation in R
-Version: 1.2.2
-Date: 2013-07-29
+Version: 1.2.3
+Date: 2013-07-31
 Authors@R: c(person("Brecht", "Devleesschauwer",
                     role = c("aut", "cre"),
                     email = "Brecht.Devleesschauwer@UGent.be"),
@@ -19,7 +19,7 @@ BugReports: https://github.com/brechtdv/DALY/issues
 Depends: R (>= 3.0.0), tcltk, grid
 Description: The DALY Calculator is a free, open-source Graphical User
              Interface (GUI) for stochastic disability-adjusted life year
-			 (DALY) calculation.
+             (DALY) calculation.
 License: GPL (>= 2)
 SystemRequirements: Tcl/Tk (>= 8.5), Tktable (>= 2.9)
 URL: http://users.ugent.be/~bdvleess/DALYcalculator
