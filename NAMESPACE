@@ -3,17 +3,19 @@ useDynLib(DALY)
 importFrom(stats, aggregate)
 
 export(DALYcalculator, DALYmanual, DALYoptions, DALY_list, getDALY,
-       readDALYdata, reset, saveDALYdata, sensitivity, setDALYexample,
-       setData, setLifeExp, setPop, setStdLE)
+       readDALYdata, reset, saveDALYdata, scatterplot, sensitivity,
+       setDALYexample, setData, setLifeExp, setPop, setStdLE)
 
 S3method(aggregate, DALY)
 S3method(print, DALY)
 S3method(summary, DALY)
 S3method(plot, DALY)
 S3method(hist, DALY)
+S3method(scatterplot, DALY)
 
 S3method(print, DALY_sensitivity)
 S3method(plot, DALY_sensitivity)
 
 S3method(print, DALY_list)
 S3method(plot, DALY_list)
+S3method(scatterplot, DALY_list)
