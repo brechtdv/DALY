@@ -22,8 +22,8 @@
   \item{DALY }{Vector of DALYs aggregated by outcome and age/sex class}
   \item{YLD }{Vector of YLDs aggregated by outcome and age/sex class}
   \item{YLL }{Vector of YLLs aggregated by outcome and age/sex class}
-  \item{Cases }{Vector of cases aggregated by outcome and age/sex class}
-  \item{Deaths }{Vector of deaths aggregated by outcome and age/sex class}
+  \item{cases }{Vector of cases aggregated by outcome and age/sex class}
+  \item{deaths }{Vector of deaths aggregated by outcome and age/sex class}
   \item{pop }{Population matrix}
   \item{name }{Name of the disease}
   
@@ -31,8 +31,8 @@
   \item{DALY }{Vector of DALYs aggregated by age/sex class}
   \item{YLD }{Vector of YLDs aggregated by age/sex class}
   \item{YLL }{Vector of YLLs aggregated by age/sex class}
-  \item{Cases }{Vector of cases aggregated by age/sex class}
-  \item{Deaths }{Vector of deaths aggregated by age/sex class}
+  \item{cases }{Vector of cases aggregated by age/sex class}
+  \item{deaths }{Vector of deaths aggregated by age/sex class}
   \item{pop }{Population matrix}
   \item{name }{Name of the disease}
   
