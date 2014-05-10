@@ -9,7 +9,7 @@
 
 \description{
   The \code{Neurocysticercosis} dataset consists of a nested list
-  containing data needed to calculate DALYs lost due to
+  containing data needed to calculate DALYs due to
   Neurocysticercosis in West Cameroon, according to Praet et al. (2009).
 }
 
@@ -75,11 +75,11 @@
   loss factor in comparison to the cost of health care and losses due to infected
   pigs. These findings should allow a simpler estimation of the global disease
   burden based on information on salary levels and human cysticercosis prevalence
-  in endemic areas of the world. In addition, the number of DALYs lost was higher
+  in endemic areas of the world. In addition, the number of DALYs was higher
   than estimates already available for some other neglected tropical diseases in
   sub-Saharan Africa.
   
-  The average number of DALYs lost was 9.0 per thousand persons per year
+  The average number of DALYs was 9.0 per thousand persons per year
   (95\% CR 2.8-20.4).
 }
 

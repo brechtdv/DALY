@@ -7,7 +7,7 @@
 
 \description{
   The \code{Toxoplasmosis} dataset consists of a nested list
-  containing data needed to calculate DALYs lost due to
+  containing data needed to calculate DALYs due to
   congenital toxoplasmosis in the Netherlands, according to Kortbeek et al. (2009).
 }
 
