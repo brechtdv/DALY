@@ -21,7 +21,7 @@ function(...){
 print.DALY_list <-
 function(x, ...){
   for (i in seq_along(x))
-    print(x[[i]])
+    print(x[[i]], ...)
 }
 
 ## PLOT method for class 'DALY_list'
