@@ -32,7 +32,7 @@ function(button.call = FALSE, aw, dr){
     if (!is.logical(aw))
 	  stop("Argument 'aw' must be a logical value", call. = FALSE)
 	if (aw != aw_gui)
-	  warning(paste("Age weighting constant specified in function call\n",
+	  warning(paste("Age weighting constant specified in function call",
 		            "differs from the one specified in GUI."),
               call. = FALSE)
     sendAW <- aw
