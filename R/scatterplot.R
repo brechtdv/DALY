@@ -93,7 +93,8 @@ function(x_val, y_val, n, N,
   y_lim <- range(y_val, na.rm = TRUE)
 
   ## generate scatterplot
-  plot(NULL, xlim = x_lim, ylim = y_lim,
+  plot(1, type = "n",
+       xlim = x_lim, ylim = y_lim,
        xlab = paste(plot, "per", per), ylab = paste(plot, "per case"), ...)
   for (i in seq(n))
     points(x_val[, i], y_val[, i],
