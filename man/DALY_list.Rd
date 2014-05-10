@@ -14,8 +14,7 @@
 \usage{
 DALY_list(\dots)
 
-\method{print}{DALY_list}(x, relative = FALSE, outcomes = FALSE,
-      prob = 0.95, digits = 0, \dots)
+\method{print}{DALY_list}(x, \dots)
 
 \method{plot}{DALY_list}(x, prob = 0.95, sort = TRUE, names = NULL,
      bars = TRUE, col = c("grey90", "white"),
@@ -24,15 +23,10 @@ DALY_list(\dots)
 }
 
 \arguments{
-  \item{\dots}{Multiple objects of class \code{'DALY'}}
-
-  \item{x }{Object of class \code{'DALY_list'}}
-  \item{relative }{Show results per 1000 population? See details below}
-  \item{outcomes }{Show results per outcome? See details below}
-  \item{prob }{Probability span by printed credibility intervals;
-               defaults to \code{0.95}}
-  \item{digits }{Number of decimals to be printed; defaults to \code{0}}
-  \item{\dots }{Additional arguments to be passed to \code{\link{print.DALY}}}
+  \item{\dots}{
+  In \code{DALY_list}: Multiple objects of class \code{'DALY'}; \cr
+  In \code{print.DALY_list}: Additional arguments to be passed to \code{\link{print.DALY}}; \cr
+  In \code{plot.DALY_list}: Additional arguments to be passed to \code{\link{plot.DALY}}}
 
   \item{x }{Object of class \code{'DALY_list'}}
   \item{prob }{Probability span by DALY error bar;
@@ -52,7 +46,6 @@ DALY_list(\dots)
                  defaults to black}
   \item{grid }{Should a vertical grid be plotted?
                defaults to \code{TRUE}}
-  \item{\dots }{Additional arguments to be passed to \code{\link{plot.DALY}}}
 }
 
 \value{
@@ -65,6 +58,7 @@ DALY_list(\dots)
   \code{\link{getDALY}}\cr
   \code{\link{print.DALY}}\cr
   \code{\link{plot.DALY}}\cr
+  \code{\link{scatterplot}}\cr
 
   \code{\link{DALYcalculator}}
   (for a brief description of the \emph{DALY Calculator})\cr
@@ -88,7 +82,7 @@ ncc <- DALY_list(ncc_00, ncc_03, ncc_13)
 
 ##= barplot of different scenarios ========================
 par(mar = c(4, 4, 1, 1) + .5)
-plot(ncc, names = c("DALY{0,0}", "DALY{0,0.03}", "DALY{1,0.03}"))
+plot(ncc, names = c("DALY[0,0]", "DALY[0,0.03]", "DALY[1,0.03]"))
 }}
 
 \keyword{output}
