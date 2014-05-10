@@ -89,9 +89,9 @@ scatterplot(toxo_00, plot = "YLD",
 ##= plot all three scenarios ==============================
 par(mfrow = c(1, 1))
 scatterplot(toxo,
-            legend = c("DALY{0,0}",
-                       "DALY{0,0.03}",
-                       "DALY{1,0.03}"),
+            legend = c("DALY[0,0]",
+                       "DALY[0,0.03]",
+                       "DALY[1,0.03]"),
             legend_pos = "topleft",
             log = "xy",
             main = "Scenario analysis")
