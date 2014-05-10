@@ -142,7 +142,7 @@ function(...){
     return()
   
   ## Startup messages
-  packageStartupMessage("\nWelcome to DALY Calculator 1.2.3 (2013-07-31)")
+  packageStartupMessage("\nWelcome to DALY Calculator 1.2.4 (2014-05-10)")
   packageStartupMessage(paste("\nType 'DALYmanual()' for help on using",
                               "the DALY Calculator"))
   packageStartupMessage(paste("Type 'DALYcalculator()' for re-initializing",

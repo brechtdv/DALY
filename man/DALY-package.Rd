@@ -20,8 +20,8 @@
   \tabular{ll}{
     Package: \tab DALY\cr
     Type: \tab Package\cr
-    Version: \tab 1.2.3\cr
-    Date: \tab 2013-07-31\cr
+    Version: \tab 1.2.4\cr
+    Date: \tab 2014-05-10\cr
     Depends: \tab R (>= 3.0.0), tcltk\cr
     License: \tab GPL (>= 2)\cr
     SystemRequirements: \tab Tcl/Tk (>= 8.5), Tktable (>= 2.9)\cr
