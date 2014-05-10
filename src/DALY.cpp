@@ -3,8 +3,8 @@
 // C++ interaction file for R DALY Package
 //
 // <author>     Brecht.Devleesschauwer@UGent.be
-// <version>    1.2.0
-// <date>       02/07/2013
+// <version>    1.2.4
+// <date>       10/05/2014
 //
 
 #include <iostream>
@@ -14,151 +14,151 @@ using namespace std;
 #include "R.h"
 #include "Rmath.h"
 
+vector<double> getSamples(double data[], int dist[], int strat[], int par, int outcomes, int OClist[], int iterations)
+{
+	int nGroups[] = {10,5,2,1};
+	int XX[]  = {0,1,2,3,4,10,11,12,13,14,0,1,2,3,4,10,11,12,13,14,0,10,2,3,4,10,11,12,13,14,0,1,2,3,4,10,11,12,13,14};
+	int XXX[] = {0,1,2,3,4,15,16,17,18,19,0,1,2,3,4,15,16,17,18,19,0,15,2,3,4,15,16,17,18,19,0,1,2,3,4,15,16,17,18,19};
+	vector<double> samples;
+
+	GetRNGstate();
+
+	for (int o=0; o<outcomes; o++)
+	{
+		int thisOutcome = 30*(OClist[o]-1);
+		double thisData[30];
+		for (int i=0; i<30; i++) thisData[i] = data[i+thisOutcome];
+		int thisPoint = par + 8*(OClist[o]-1);
+		int thisDist = dist[thisPoint];
+		int thisStrat = strat[thisPoint]-1;
+
+		switch(thisDist)
+		{
+			case 1:     // Beta-pert
+			{
+				for (int n=0; n<nGroups[thisStrat]; n++)
+				{
+					int point1 = XXX[n+(thisStrat)*10];
+					int point2 = XXX[n+(thisStrat)*10]+5;
+					int point3 = XXX[n+(thisStrat)*10]+10;
+					double mode  = thisData[point1];
+					double min   = thisData[point2];
+					double max   = thisData[point3];
+
+					double mean  = (max + 4*mode + min) /   6;
+					double sdev  = (max - min) / 6;
+					double alpha = ((mean-min)/(max-min)) * (((mean-min)*(max-mean))/(pow(sdev,2)) - 1);
+					double beta  = ((max-mean)/(mean-min)) * alpha;
+					if (alpha>0 && beta>0)
+					{
+						for (int x=0; x<(iterations*(10/nGroups[thisStrat])); x++) samples.push_back(rbeta(alpha,beta)*(max-min)+min);
+					} else {
+						for (int x=0; x<(iterations*(10/nGroups[thisStrat])); x++) samples.push_back(0);
+					}
+				}
+			} break;
+
+			case 2:     // Beta
+			{
+				for (int n=0; n<nGroups[thisStrat]; n++)
+				{
+					int point1 = XX[n+(thisStrat)*10];
+					int point2 = XX[n+(thisStrat)*10]+5;
+					double alpha = thisData[point1];
+					double beta = thisData[point2];
+					if (alpha>0 && beta>0)
+					{
+						for (int x=0; x<(iterations*(10/nGroups[thisStrat])); x++) samples.push_back(rbeta(alpha,beta));
+					} else {
+						for (int x=0; x<(iterations*(10/nGroups[thisStrat])); x++) samples.push_back(0);
+					}
+				}
+			} break;
+
+			case 3:     // Gamma
+			{
+				for (int n=0; n<nGroups[thisStrat]; n++)
+				{
+					int point1 = XX[n+(thisStrat)*10];
+					int point2 = XX[n+(thisStrat)*10]+5;
+					double shape = thisData[point1];
+					double rate = thisData[point2];
+					if (shape>0 && rate>0)
+					{
+						for (int x=0; x<(iterations*(10/nGroups[thisStrat])); x++) samples.push_back(rgamma(shape,1/rate));
+					} else {
+						for (int x=0; x<(iterations*(10/nGroups[thisStrat])); x++) samples.push_back(0);
+					}
+				}
+			} break;
+
+			case 4:     // Normal
+			{
+				for (int n=0; n<nGroups[thisStrat]; n++)
+				{
+					int point1 = XX[n+(thisStrat)*10];
+					int point2 = XX[n+(thisStrat)*10]+5;
+					double mean = thisData[point1];
+					double sdev = thisData[point2];
+					for (int x=0; x<(iterations*(10/nGroups[thisStrat])); x++) samples.push_back(rnorm(mean,sdev));
+				}
+			} break;
+
+			case 5:     // LogNormal - geometric
+			{
+				for (int n=0; n<nGroups[thisStrat]; n++)
+				{
+					int point1 = XX[n+(thisStrat)*10];
+					int point2 = XX[n+(thisStrat)*10]+5;
+					double mean = thisData[point1];
+					double sdev = thisData[point2];
+					for (int x=0; x<(iterations*(10/nGroups[thisStrat])); x++) samples.push_back(rlnorm(mean,sdev));
+				}
+			} break;
+
+			case 6:     // LogNormal - arithmetic
+			{
+				for (int n=0; n<nGroups[thisStrat]; n++)
+				{
+					int point1 = XX[n+(thisStrat)*10];
+					int point2 = XX[n+(thisStrat)*10]+5;
+					double lmean = thisData[point1];
+					double lvar = pow(thisData[point2],2);
+					double mean = log(lmean) - 0.5*log(1+(lvar/pow(lmean,2)));
+					double sdev = sqrt(log(1+(lvar/pow(lmean,2))));
+					for (int x=0; x<(iterations*(10/nGroups[thisStrat])); x++) samples.push_back(rlnorm(mean,sdev));
+				}
+			} break;
+
+			case 7:     // Uniform
+			{
+				for (int n=0; n<nGroups[thisStrat]; n++)
+				{
+					int point1 = XX[n+(thisStrat)*10];
+					int point2 = XX[n+(thisStrat)*10]+5;
+					double min = thisData[point1];
+					double max = thisData[point2];
+					for (int x=0; x<(iterations*(10/nGroups[thisStrat])); x++) samples.push_back(runif(min,max));
+				}
+			} break;
+
+			case 8:     // Fixed
+			{
+				for (int n=0; n<nGroups[thisStrat]; n++)
+				{
+					for (int x=0; x<(iterations*(10/nGroups[thisStrat])); x++) samples.push_back(thisData[n]);
+				}
+			} break;
+
+		}
+	}
+
+	PutRNGstate();
+
+	return(samples);
+}
+
 extern "C" {
-
-    vector<double> getSamples(double data[], int dist[], int strat[], int par, int outcomes, int OClist[], int iterations)
-    {
-        int nGroups[] = {10,5,2,1};
-        int XX[]  = {0,1,2,3,4,10,11,12,13,14,0,1,2,3,4,10,11,12,13,14,0,10,2,3,4,10,11,12,13,14,0,1,2,3,4,10,11,12,13,14};
-        int XXX[] = {0,1,2,3,4,15,16,17,18,19,0,1,2,3,4,15,16,17,18,19,0,15,2,3,4,15,16,17,18,19,0,1,2,3,4,15,16,17,18,19};
-        vector<double> samples;
-
-		GetRNGstate();
-
-        for (int o=0; o<outcomes; o++)
-        {
-            int thisOutcome = 30*(OClist[o]-1);
-            double thisData[30];
-            for (int i=0; i<30; i++) thisData[i] = data[i+thisOutcome];
-            int thisPoint = par + 8*(OClist[o]-1);
-            int thisDist = dist[thisPoint];
-            int thisStrat = strat[thisPoint]-1;
-
-            switch(thisDist)
-            {
-                case 1:     // Beta-pert
-                {
-                    for (int n=0; n<nGroups[thisStrat]; n++)
-                    {
-                        int point1 = XXX[n+(thisStrat)*10];
-                        int point2 = XXX[n+(thisStrat)*10]+5;
-                        int point3 = XXX[n+(thisStrat)*10]+10;
-                        double mode  = thisData[point1];
-                        double min   = thisData[point2];
-                        double max   = thisData[point3];
-
-                        double mean  = (max + 4*mode + min) /   6;
-                        double sdev  = (max - min) / 6;
-                        double alpha = ((mean-min)/(max-min)) * (((mean-min)*(max-mean))/(pow(sdev,2)) - 1);
-                        double beta  = ((max-mean)/(mean-min)) * alpha;
-                        if (alpha>0 && beta>0)
-                        {
-                            for (int x=0; x<(iterations*(10/nGroups[thisStrat])); x++) samples.push_back(rbeta(alpha,beta)*(max-min)+min);
-                        } else {
-                            for (int x=0; x<(iterations*(10/nGroups[thisStrat])); x++) samples.push_back(0);
-                        }
-                    }
-                } break;
-
-                case 2:     // Beta
-                {
-                    for (int n=0; n<nGroups[thisStrat]; n++)
-                    {
-                        int point1 = XX[n+(thisStrat)*10];
-                        int point2 = XX[n+(thisStrat)*10]+5;
-                        double alpha = thisData[point1];
-                        double beta = thisData[point2];
-                        if (alpha>0 && beta>0)
-                        {
-                            for (int x=0; x<(iterations*(10/nGroups[thisStrat])); x++) samples.push_back(rbeta(alpha,beta));
-                        } else {
-                            for (int x=0; x<(iterations*(10/nGroups[thisStrat])); x++) samples.push_back(0);
-                        }
-                    }
-                } break;
-
-                case 3:     // Gamma
-                {
-                    for (int n=0; n<nGroups[thisStrat]; n++)
-                    {
-                        int point1 = XX[n+(thisStrat)*10];
-                        int point2 = XX[n+(thisStrat)*10]+5;
-                        double shape = thisData[point1];
-                        double rate = thisData[point2];
-                        if (shape>0 && rate>0)
-                        {
-                            for (int x=0; x<(iterations*(10/nGroups[thisStrat])); x++) samples.push_back(rgamma(shape,1/rate));
-                        } else {
-                            for (int x=0; x<(iterations*(10/nGroups[thisStrat])); x++) samples.push_back(0);
-                        }
-                    }
-                } break;
-
-                case 4:     // Normal
-                {
-                    for (int n=0; n<nGroups[thisStrat]; n++)
-                    {
-                        int point1 = XX[n+(thisStrat)*10];
-                        int point2 = XX[n+(thisStrat)*10]+5;
-                        double mean = thisData[point1];
-                        double sdev = thisData[point2];
-                        for (int x=0; x<(iterations*(10/nGroups[thisStrat])); x++) samples.push_back(rnorm(mean,sdev));
-                    }
-                } break;
-
-                case 5:     // LogNormal - geometric
-                {
-                    for (int n=0; n<nGroups[thisStrat]; n++)
-                    {
-                        int point1 = XX[n+(thisStrat)*10];
-                        int point2 = XX[n+(thisStrat)*10]+5;
-                        double mean = thisData[point1];
-                        double sdev = thisData[point2];
-                        for (int x=0; x<(iterations*(10/nGroups[thisStrat])); x++) samples.push_back(rlnorm(mean,sdev));
-                    }
-                } break;
-
-                case 6:     // LogNormal - arithmetic
-                {
-                    for (int n=0; n<nGroups[thisStrat]; n++)
-                    {
-                        int point1 = XX[n+(thisStrat)*10];
-                        int point2 = XX[n+(thisStrat)*10]+5;
-                        double lmean = thisData[point1];
-                        double lvar = pow(thisData[point2],2);
-                        double mean = log(lmean) - 0.5*log(1+(lvar/pow(lmean,2)));
-                        double sdev = sqrt(log(1+(lvar/pow(lmean,2))));
-                        for (int x=0; x<(iterations*(10/nGroups[thisStrat])); x++) samples.push_back(rlnorm(mean,sdev));
-                    }
-                } break;
-
-                case 7:     // Uniform
-                {
-                    for (int n=0; n<nGroups[thisStrat]; n++)
-                    {
-                        int point1 = XX[n+(thisStrat)*10];
-                        int point2 = XX[n+(thisStrat)*10]+5;
-                        double min = thisData[point1];
-                        double max = thisData[point2];
-                        for (int x=0; x<(iterations*(10/nGroups[thisStrat])); x++) samples.push_back(runif(min,max));
-                    }
-                } break;
-
-                case 8:     // Fixed
-                {
-                    for (int n=0; n<nGroups[thisStrat]; n++)
-                    {
-                        for (int x=0; x<(iterations*(10/nGroups[thisStrat])); x++) samples.push_back(thisData[n]);
-                    }
-                } break;
-
-            }
-        }
-
-		PutRNGstate();
-
-        return(samples);
-    }
 
     double getLxp(double age, int sex, double lxpList[])
     {
