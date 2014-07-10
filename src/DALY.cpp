@@ -3,8 +3,8 @@
 // C++ interaction file for R DALY Package
 //
 // <author>     Brecht.Devleesschauwer@UGent.be
-// <version>    1.2.4
-// <date>       10/05/2014
+// <version>    1.3.1
+// <date>       10/07/2014
 //
 
 #include <iostream>
@@ -177,12 +177,12 @@ extern "C" {
     }
 
     void getMC(double *MRT, double *INC, double *YLD, double *YLL,
-	           double *samplesInc, double *samplesTrt, double *samplesOns, double *samplesDur,
-	           double *samplesDWt, double *samplesDWn, double *samplesMrt, double *samplesDth,
+               double *samplesInc, double *samplesTrt, double *samplesOns, double *samplesDur,
+               double *samplesDWt, double *samplesDWn, double *samplesMrt, double *samplesDth,
                int *IT, int *AW, double *DR,
-			   int *OC, int *nOC, int *getDist, int *getStrat, int *getStrAge, int *getStrSex,
-			   double *getPop, double *getDur, double *getOns, double *getInc, double *getTrt,
-			   double *getMrt, double *getDWt, double *getDWn, double *getDth, double *listLxp)
+               int *OC, int *nOC, int *getDist, int *getStrat, int *getStrAge, int *getStrSex,
+               double *getPop, double *getDur, double *getOns, double *getInc, double *getTrt,
+               double *getMrt, double *getDWt, double *getDWn, double *getDth, double *listLxp)
     {
         double D = (double)*DR/100;
         int ageGroups = 5;
@@ -211,32 +211,32 @@ extern "C" {
 									
 					for (int i=0; i<*IT; i++) // generate 'IT' simulations
                     {
-                        double inc = rpois(getPop[a+5*s] * (SamplesInc[ (thisOC) + a*getStrAge[thisStr]*(*IT) + s*getStrSex[thisStr]*(*IT) + i ] )/1000);
+                        double inc = getPop[a+5*s] * (SamplesInc[ (thisOC) + a*getStrAge[thisStr]*(*IT) + s*getStrSex[thisStr]*(*IT) + i ] )/1000;
                         double trt = SamplesTrt[ (thisOC) + a*getStrAge[thisStr+1]*(*IT) + s*getStrSex[thisStr+1]*(*IT) + i ];
                         double ons = SamplesOns[ (thisOC) + a*getStrAge[thisStr+2]*(*IT) + s*getStrSex[thisStr+2]*(*IT) + i ];
                         double dur = SamplesDur[ (thisOC) + a*getStrAge[thisStr+3]*(*IT) + s*getStrSex[thisStr+3]*(*IT) + i ];
                         double DWt = SamplesDWt[ (thisOC) + a*getStrAge[thisStr+4]*(*IT) + s*getStrSex[thisStr+4]*(*IT) + i ];
                         double DWn = SamplesDWn[ (thisOC) + a*getStrAge[thisStr+5]*(*IT) + s*getStrSex[thisStr+5]*(*IT) + i ];
-                        double mrt = rpois(getPop[a+5*s] * (SamplesMrt[ (thisOC) + a*getStrAge[thisStr+6]*(*IT) + s*getStrSex[thisStr+6]*(*IT) + i ] )/1000);
+                        double mrt = getPop[a+5*s] * (SamplesMrt[ (thisOC) + a*getStrAge[thisStr+6]*(*IT) + s*getStrSex[thisStr+6]*(*IT) + i ] )/1000;
                         double dth = SamplesDth[ (thisOC) + a*getStrAge[thisStr+7]*(*IT) + s*getStrSex[thisStr+7]*(*IT) + i ];
                         double lxp = getLxp(dth, s, listLxp);
 
                         double YLDi = inc * formula(D,*AW,ons,dur) * ((trt * DWt) + ((1-trt) * DWn));
                         double YLLi = mrt * formula(D,*AW,dth,lxp);
 
-						INC[thisOC + thisS + thisAG + i] += inc;
+                        INC[thisOC + thisS + thisAG + i] += inc;
                         MRT[thisOC + thisS + thisAG + i] += mrt;
                         YLD[thisOC + thisS + thisAG + i] += YLDi;
                         YLL[thisOC + thisS + thisAG + i] += YLLi;
 						
-						samplesInc[thisOC + thisS + thisAG + i] = SamplesInc[ (thisOC) + a*getStrAge[thisStr]*(*IT) + s*getStrSex[thisStr]*(*IT) + i ];
-						samplesMrt[thisOC + thisS + thisAG + i] = SamplesMrt[ (thisOC) + a*getStrAge[thisStr+6]*(*IT) + s*getStrSex[thisStr+6]*(*IT) + i ];
-						samplesTrt[thisOC + thisS + thisAG + i] = trt;
-						samplesOns[thisOC + thisS + thisAG + i] = ons;
-						samplesDur[thisOC + thisS + thisAG + i] = dur;
-						samplesDWt[thisOC + thisS + thisAG + i] = DWt;
-						samplesDWn[thisOC + thisS + thisAG + i] = DWn;
-						samplesDth[thisOC + thisS + thisAG + i] = dth;
+                        samplesInc[thisOC + thisS + thisAG + i] = SamplesInc[ (thisOC) + a*getStrAge[thisStr]*(*IT) + s*getStrSex[thisStr]*(*IT) + i ];
+                        samplesMrt[thisOC + thisS + thisAG + i] = SamplesMrt[ (thisOC) + a*getStrAge[thisStr+6]*(*IT) + s*getStrSex[thisStr+6]*(*IT) + i ];
+                        samplesTrt[thisOC + thisS + thisAG + i] = trt;
+                        samplesOns[thisOC + thisS + thisAG + i] = ons;
+                        samplesDur[thisOC + thisS + thisAG + i] = dur;
+                        samplesDWt[thisOC + thisS + thisAG + i] = DWt;
+                        samplesDWn[thisOC + thisS + thisAG + i] = DWn;
+                        samplesDth[thisOC + thisS + thisAG + i] = dth;
                     }
                 }
             }
