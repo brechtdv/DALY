@@ -1,0 +1,170 @@
+DALY 1.4.0
+==========
+
+BUG FIXES
+
+* fixed NAMESPACE issues with imported packages
+
+* removed Poisson distribution on number of cases and deaths
+
+* fixed bug with scientific notation in Tk tables
+
+* fixed bug with beta-PERT distribution
+
+
+DALY 1.3.0
+==========
+
+NEW FEATURES
+
+* introduction of a `DALY_list()` function to combine different `DALY` objects
+
+* introduction of a `plot()` method for objects of class `DALY` and `DALY_list`
+
+* introduction of a `scatterplot()` method for objects of class `DALY` and
+  `DALY_list`
+
+* introduction of a `print()` and `plot()` method for objects of class
+  `DALY_sensitivity`
+
+PERFORMANCE IMPROVEMENTS
+
+* function `sensitivity()` has been updated to allow calculating
+  (standardized) regression coefficients and partial correlation
+  coefficients, either on the original or the ranked input values
+
+BUG FIXES
+
+* fixed mismatch between Authors@R and Author fields in DESCRIPTION file
+
+* the use of extern "C" {} in the `DALY.cpp` file has been revised to fix
+  issues with clang
+
+
+DALY 1.2.0
+==========
+
+NEW FEATURES
+
+* introduction of a `sensitivity()` function
+
+* function `getDALY()` gains arguments `aw` and `dr`
+
+PERFORMANCE IMPROVEMENTS
+
+* the DALY Calculator output now also includes the simulated values from the 
+  input distributions
+
+* several functions have been updated to make proper use of the `match.arg()` 
+  functionality
+
+* the `DALY` database on the search path is replaced by a `.DALYenv` 
+  environment in the DALY package
+
+BUG FIXES
+
+* the `readDALYdata()` function now correctly reads `.RData` files when 
+  specified through the file argument
+
+* all instances of `INC` and `MRT` have now consistently been renamed to 
+  `cases` and `deaths`, respectively
+
+* the DALY Calculator manual has been rebuilt to fix issues with pdffonts
+
+
+DALY 1.1.0
+==========
+
+NEW FEATURES
+
+* introduction of an `aggregate()` method for objects of class `DALY`
+
+PERFORMANCE IMPROVEMENTS
+
+* each window has a "save or cancel" policy
+
+* the basic DALY Calculator output consists of simulated DALYs, YLLs, YLDs, 
+  incident cases and deaths per outcome and per age/sex class
+
+* `print()`, `summary()` and `hist()` methods have been updated
+
+* saving and loading data is implemented through `.RData` files instead of 
+  `.txt ` files
+
+DEPRECATED AND DEFUNCT
+
+* text files with input data can no longer be read by the DALY Calculator
+
+* as a result, the DALY Calculator Excel template is defunct
+
+INSTALLATION
+
+* DALY 1.1.0 can be installed and run under Mac OS X, Linux and Windows 
+  operating systems. The DALY Calculator is only launched after attaching the 
+  package in an interactive session, which means that the package can be 
+  installed without having the required tools installed. Loading the package 
+  under Mac OS X and Linux requires the prior installation of the X Window 
+  System (X11) and the Tcl/Tk toolkit.
+
+BUG FIXES
+
+* global variables removed; all variables needed by the DALY Calculator are 
+  stored in a separate `DALY` database
+
+* welcome messages implemented through `packageStartupMessage()`
+
+* problems with installation of `BWidget` resolved by replacing 
+  `tkwidget(parent, type = "ComboBox", ...)` by `ttkcombobox()`
+
+* `set.seed()` can be used to select the seed used for the random number 
+  generation processes within the DALY Calculator
+
+* a same window can be opened only once; calling a window opening function 
+  while the corresponding window is already opened will return focus to the 
+  existing window
+
+* evaluation of input data improved by using regular expressions
+
+* empty cells in the *Life Expectancy* window produce an error message, while 
+  they are still allowed in other windows
+
+* `iterations` can only be set to a strictly positive integer value
+
+* on closing the DALY Calculator main window, all other DALY Calculator 
+  windows will close as well
+
+* checkboxes may also be set by clicking the corresponding text.
+
+
+DALY 1.0.0
+==========
+
+NEW FEATURES
+
+* calculate DALYs, YLDs, YLLs and Deaths for a simple incidence-based disease 
+  model
+
+* able to include up to eight outcomes
+
+* five age-groups included, i.e., 0-4; 5-14; 15-44; 45-59; 60+
+
+* life expectancy table can be defined by user; standard table is the Coale 
+  and Demeny model life-table West, level 26 and 25
+
+* two examples included: Neurocysticercosis in Cameroon and 
+  Toxoplasmosis in the Netherlands
+
+* saving/loading data through .txt file
+
+* the basic DALY Calculator output consists of simulated DALYs, YLLs, YLDs 
+  and deaths per outcome, aggregated over age/sex classes
+
+* `print()`, `summary()` and `hist()` methods for objects returned by the
+  DALY Calculator.
+
+DALY 0.0.0
+==========
+
+* A first version of the DALY Calculator was developed in November 2010, but 
+  was never released. This version consisted of a single `data` window, and 
+  was only able to reproduce the Neurocysticercosis example. 
