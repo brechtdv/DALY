@@ -1,5 +1,6 @@
 useDynLib(DALY)
 
+import(tcltk, grid)
 importFrom(stats, aggregate)
 
 export(DALYcalculator, DALYmanual, DALYoptions, DALY_list, getDALY,
