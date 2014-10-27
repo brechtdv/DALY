@@ -10,7 +10,7 @@ function(){
   setStdLE()
 
   ## Info message
-  info <- paste("DALY Calculator 1.3.1 (2014-07-10)",
+  info <- paste("DALY Calculator 1.4.0 (2014-10-27)",
                 "\nhttp://users.ugent.be/~bdvleess/DALYcalculator",
                 "\nDeveloped and maintained by:",
                 "  Brecht Devleesschauwer <Brecht.Devleesschauwer@UGent.be>",
