@@ -9,8 +9,6 @@ BUG FIXES
 
 * fixed bug with scientific notation in Tk tables
 
-* fixed bug with beta-PERT distribution
-
 
 DALY 1.3.0
 ==========
