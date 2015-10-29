@@ -30,7 +30,7 @@ function(x, method = c("src", "pcc"), rank = FALSE, mapped = TRUE){
 
   ## remove fixed values
   fixed <- apply(data, 2, var) == 0
-  data <- data[, !fixed]
+  data <- data[, !fixed, drop = FALSE] #Set drop=FALSE to keep the dimension of the data in case only one column returned
 
   ## convert values to ranks
   if (rank){
@@ -79,7 +79,7 @@ function(x, alpha = 0.05, main = "Sensitivity analysis",
   ## standardized (rank) regression coefficients
   if (x$method$method == "src"){
     ## sort estimates
-    cf <- coef(x$out)[-1, ]
+    cf <- coef(x$out)[-1, drop = FALSE]
     signif <- cf[, 4] < alpha
     order <- order(abs(cf[signif, 1]))
     est <- cf[signif, 1][order]
@@ -129,7 +129,7 @@ function(x, digits = 3, signif_stars = getOption("show.signif.stars"), ...){
   ## standardized (rank) regression coefficients
   if (x$method$method == "src"){
     ## sort estimates
-    cf <- coef(x$out)[-1, ]
+    cf <- coef(x$out)[-1, drop = FALSE] #Set drop=FALSE to keep the dimension of the data in case only one column returned
     order <- order(abs(cf[, 1]), decreasing = TRUE)
     est <- cf[order, 1:4]
     if (signif_stars){
@@ -138,11 +138,11 @@ function(x, digits = 3, signif_stars = getOption("show.signif.stars"), ...){
                cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1), 
                symbols = c("***", "**", "*", ".", " "))
       est <-
-        data.frame(formatC(est[, 1:2], digits = digits,
+        data.frame(formatC(as.matrix(est[, 1:2]), digits = digits,
                    format = ifelse(x$method$mapped, "f", "g")),
                    formatC(est[, 3], digits = digits, format = "f"),
                    formatC(est[, 4], digits = digits, format = "g"),
-                   format(signif))
+                   format(signif)) #Coerce est[,1:2] as matrix otherwise is.definite(x) error will be returned in case only 1 coef exists
       colnames(est) <- c("Estimate", "Std. Error", "t value", "Pr(>|t|)", "")
     }
 
