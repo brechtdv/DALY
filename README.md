@@ -8,7 +8,7 @@ To install or update, run:
 
     install.packages("DALY")
 
-More information is at http://users.ugent.be/~bdvleess/DALYcalculator/.
+More information is at http://daly.cbra.be/.
 
 
 ## Development
