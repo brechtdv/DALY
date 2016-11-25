@@ -82,7 +82,7 @@ function(x, alpha = 0.05, main = "Sensitivity analysis",
   ## standardized (rank) regression coefficients
   if (x$method$method == "src"){
     ## sort estimates
-    cf <- coef(x$out)[-1, drop = FALSE]
+    cf <- coef(x$out)[-1, , drop = FALSE]
     signif <- cf[, 4] < alpha
     order <- order(abs(cf[signif, 1]))
     est <- cf[signif, 1][order]
@@ -132,7 +132,7 @@ function(x, digits = 3, signif_stars = getOption("show.signif.stars"), ...){
   ## standardized (rank) regression coefficients
   if (x$method$method == "src"){
     ## sort estimates
-    cf <- coef(x$out)[-1, drop = FALSE]
+    cf <- coef(x$out)[-1, , drop = FALSE]
     order <- order(abs(cf[, 1]), decreasing = TRUE)
     est <- cf[order, 1:4]
     if (signif_stars){
