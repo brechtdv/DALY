@@ -1,11 +1,49 @@
 useDynLib(DALY)
 
 import(tcltk, grid)
-importFrom(stats, aggregate)
 
-export(DALYcalculator, DALYmanual, DALYoptions, DALY_list, getDALY,
-       readDALYdata, reset, saveDALYdata, scatterplot, sensitivity,
-       setDALYexample, setData, setLifeExp, setPop, setStdLE)
+importFrom(grDevices, rgb)
+
+importFrom(graphics, abline)
+importFrom(graphics, barplot)
+importFrom(graphics, barplot.default)
+importFrom(graphics, box)
+importFrom(graphics, hist)
+importFrom(graphics, legend)
+importFrom(graphics, par)
+importFrom(graphics, points)
+importFrom(graphics, segments)
+importFrom(graphics, text)
+
+importFrom(stats, aggregate)
+importFrom(stats, approx)
+importFrom(stats, coef)
+importFrom(stats, cor.test)
+importFrom(stats, lm)
+importFrom(stats, median)
+importFrom(stats, quantile)
+importFrom(stats, symnum)
+importFrom(stats, var)
+
+importFrom(utils, head)
+importFrom(utils, help)
+importFrom(utils, tail)
+
+export(DALYcalculator)
+export(DALYmanual)
+export(DALYoptions)
+export(DALY_list)
+export(getDALY)
+export(readDALYdata)
+export(reset)
+export(saveDALYdata)
+export(scatterplot)
+export(sensitivity)
+export(setDALYexample)
+export(setData)
+export(setLifeExp)
+export(setPop)
+export(setStdLE)
 
 S3method(aggregate, DALY)
 S3method(print, DALY)
