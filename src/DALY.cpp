@@ -162,7 +162,7 @@ extern "C" {
 
     double getLxp(double age, int sex, double lxpList[])
     {
-        int point = round(age*10) + sex*951;
+        int point = fround(age*10) + sex*951;
         double value = lxpList[point];
         return(value);
     }
