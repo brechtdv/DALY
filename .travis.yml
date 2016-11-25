@@ -4,5 +4,10 @@ language: r
 warnings_are_errors: true
 sudo: required
 
+env:
+  global:
+    - DISPLAY=:99.0
 install:
   - sh -e /etc/init.d/xvfb start
+install:
+  - ./travis-tool.sh install_aptget xvfb-run
