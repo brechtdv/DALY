@@ -122,8 +122,7 @@ sensitivity(x, method = c("src", "pcc"), rank = FALSE, mapped = TRUE)
 \author{\email{Brecht.Devleesschauwer@UGent.be}}
 
 \seealso{
-  Package \pkg{\link[sensitivity]{sensitivity}}, for more advanced sensitivity
-  analysis methods.\cr
+  Package \pkg{sensitivity} (\url{https://cran.r-project.org/package=sensitivity}), for more advanced sensitivity analysis methods.\cr
   
   \code{\link{getDALY}}\cr
   \code{\link{lm}}\cr
