@@ -2,4 +2,4 @@
 ### .. compress PDF file
 
 ## compact pdf
-tools::compactPDF("DALYmanual.pdf", gs_quality = "ebook")
+tools::compactPDF("../inst/doc/DALYmanual.pdf", gs_quality = "ebook")
