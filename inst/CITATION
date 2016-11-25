@@ -10,9 +10,9 @@ citEntry(
              person("Nicolas", "Praet", role = "aut"),
              person("Arie", "Havelaar", role = "aut"),
              person("Niko", "Speybroeck", role = "aut")),
-  title = "DALY: The DALY Calculator - A GUI for stochastic DALY calculation in R",
+  title = "DALY: The DALY Calculator - Graphical User Interface for Probabilistic DALY calculation in R",
   year = "2016",
   note = "R package version 1.5.0",
   url = "http://cran.r-project.org/package=DALY",
-  textVersion = "Brecht Devleesschauwer, Scott McDonald, Juanita Haagsma, Nicolas Praet, Arie Havelaar and Niko Speybroeck (2016). DALY: The DALY Calculator - A GUI for stochastic DALY calculation in R. R package version 1.5.0. http://cran.r-project.org/package=DALY"
+  textVersion = "Brecht Devleesschauwer, Scott McDonald, Juanita Haagsma, Nicolas Praet, Arie Havelaar and Niko Speybroeck (2016). DALY: The DALY Calculator - Graphical User Interface for Probabilistic DALY calculation in R. R package version 1.5.0. http://cran.r-project.org/package=DALY"
 )

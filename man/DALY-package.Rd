@@ -4,11 +4,11 @@
 
 \docType{package}
 
-\title{The DALY Calculator -- A GUI for stochastic DALY calculation in R}
+\title{The DALY Calculator -- Graphical User Interface for Probabilistic DALY Calculation in R}
 
 \description{
   The \emph{DALY Calculator} is a free, open-source Graphical User Interface (GUI)
-  for stochastic disability-adjusted life year (DALY) calculation,
+  for probabilistic disability-adjusted life year (DALY) calculation,
   developed in the \R environment for statistical computing.
   \cr\cr
   The main goal of the \emph{DALY Calculator} is to provide a flexible and
@@ -22,11 +22,10 @@
     Type: \tab Package\cr
     Version: \tab 1.5.0\cr
     Date: \tab 2016-11-25\cr
-    Depends: \tab R (>= 3.3.0), tcltk\cr
+    Depends: \tab R (>= 3.3.0)\cr
     License: \tab GPL (>= 2)\cr
     SystemRequirements: \tab Tcl/Tk (>= 8.5), Tktable (>= 2.9)\cr
     URL: \tab \url{http://daly.cbra.be}\cr
-    LazyData: \tab no
   }
 }
 
@@ -43,6 +42,7 @@
 
 \references{
   \itemize{
+    \item{\url{http://daly.cbra.be}}
     \item{Devleesschauwer B, et al. (2014). Calculating Disability-Adjusted
           Life Years to quantify burden of disease. \emph{International Journal
           of Public Health 59,} 565-569. \url{http://dx.doi.org/10.1007/s00038-014-0552-z}}

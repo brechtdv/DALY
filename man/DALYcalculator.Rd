@@ -10,7 +10,7 @@
   \enumerate{
     \item{Set the \sQuote{Population} table}
     \item{Set the \sQuote{Life Expectancy} table - the default is the
-	      Coale and Demeny model life table West, level 25 and 26}
+	      standard life expectancy table introduced in the GBD2010 study}
     \item{Set the input parameters and corresponding
 	      distributions and stratification levels}
     \item{Set the age weighting and time discounting rates}
