@@ -13,6 +13,6 @@ citEntry(
   title = "DALY: The DALY Calculator - Graphical User Interface for Probabilistic DALY calculation in R",
   year = "2016",
   note = "R package version 1.5.0",
-  url = "http://cran.r-project.org/package=DALY",
-  textVersion = "Brecht Devleesschauwer, Scott McDonald, Juanita Haagsma, Nicolas Praet, Arie Havelaar and Niko Speybroeck (2016). DALY: The DALY Calculator - Graphical User Interface for Probabilistic DALY calculation in R. R package version 1.5.0. http://cran.r-project.org/package=DALY"
+  url = "https://cran.r-project.org/package=DALY",
+  textVersion = "Brecht Devleesschauwer, Scott McDonald, Juanita Haagsma, Nicolas Praet, Arie Havelaar and Niko Speybroeck (2016). DALY: The DALY Calculator - Graphical User Interface for Probabilistic DALY calculation in R. R package version 1.5.0. https://cran.r-project.org/package=DALY"
 )
