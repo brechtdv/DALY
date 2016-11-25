@@ -1,3 +1,21 @@
+DALY 1.5.0
+==========
+
+PERFORMANCE IMPROVEMENTS
+
+* the GBD2010 and WHO/GHE standard life expectancy tables have been added
+
+* the GBD2010 standard life expectancy table is now the default option
+
+BUG FIXES
+
+* fixed imports declarations in NAMESPACE
+
+* converted `round()` to `fround()` in `DALY.cpp`
+
+* `sensitivity` functions could result in errors due to loss of dimensions (@thanhleviet)
+
+
 DALY 1.4.0
 ==========
 

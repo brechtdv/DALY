@@ -1,7 +1,7 @@
 Package: DALY
 Type: Package
 Title: DALY Calculator - A GUI for stochastic DALY calculation in R
-Version: 1.4.1
+Version: 1.5.0
 Date: 2016-11-25
 Authors@R: c(person("Brecht", "Devleesschauwer",
                     role = c("aut", "cre"),
