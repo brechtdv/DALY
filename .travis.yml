@@ -3,3 +3,6 @@
 language: r
 warnings_are_errors: true
 sudo: required
+
+install:
+  - sh -e /etc/init.d/xvfb start
