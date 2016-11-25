@@ -1,5 +1,5 @@
 ## sensitivity analysis for DALY estimate
-## .. with contributions from Thanh Lê (@thanhleviet)
+## .. with contributions from @thanhleviet
 
 sensitivity <-
 function(x, method = c("src", "pcc"), rank = FALSE, mapped = TRUE){
