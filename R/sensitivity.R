@@ -1,4 +1,5 @@
 ## sensitivity analysis for DALY estimate
+## .. with contributions from Thanh Lê (@thanhleviet)
 
 sensitivity <-
 function(x, method = c("src", "pcc"), rank = FALSE, mapped = TRUE){
@@ -30,8 +31,10 @@ function(x, method = c("src", "pcc"), rank = FALSE, mapped = TRUE){
 
   ## remove fixed values
   fixed <- apply(data, 2, var) == 0
-  data <- data[, !fixed]
 
+  ## set drop=FALSE to keep data dimension in case only 1 column returned
+  data <- data[, !fixed, drop = FALSE]
+ 
   ## convert values to ranks
   if (rank){
     daly <- rank(daly)
@@ -79,7 +82,7 @@ function(x, alpha = 0.05, main = "Sensitivity analysis",
   ## standardized (rank) regression coefficients
   if (x$method$method == "src"){
     ## sort estimates
-    cf <- coef(x$out)[-1, ]
+    cf <- coef(x$out)[-1, drop = FALSE]
     signif <- cf[, 4] < alpha
     order <- order(abs(cf[signif, 1]))
     est <- cf[signif, 1][order]
@@ -129,7 +132,7 @@ function(x, digits = 3, signif_stars = getOption("show.signif.stars"), ...){
   ## standardized (rank) regression coefficients
   if (x$method$method == "src"){
     ## sort estimates
-    cf <- coef(x$out)[-1, ]
+    cf <- coef(x$out)[-1, drop = FALSE]
     order <- order(abs(cf[, 1]), decreasing = TRUE)
     est <- cf[order, 1:4]
     if (signif_stars){
@@ -137,8 +140,9 @@ function(x, digits = 3, signif_stars = getOption("show.signif.stars"), ...){
         symnum(est[, 4], corr = FALSE, na = FALSE, 
                cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1), 
                symbols = c("***", "**", "*", ".", " "))
+      # coerce est[,1:2] as matrix <=> is.definite(x) error if only 1 coef
       est <-
-        data.frame(formatC(est[, 1:2], digits = digits,
+        data.frame(formatC(as.matrix(est[, 1:2]), digits = digits,
                    format = ifelse(x$method$mapped, "f", "g")),
                    formatC(est[, 3], digits = digits, format = "f"),
                    formatC(est[, 4], digits = digits, format = "g"),
