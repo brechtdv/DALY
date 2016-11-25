@@ -2,9 +2,9 @@
 // DALY.cpp
 // C++ interaction file for R DALY Package
 //
-// <author>     Brecht.Devleesschauwer@UGent.be
-// <version>    1.3.1
-// <date>       10/07/2014
+// <author>     brechtdv@gmail.com
+// <version>    1.5.0
+// <date>       2016/11/25
 //
 
 #include <iostream>
