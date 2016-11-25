@@ -1,6 +1,8 @@
+# travis yaml file
 ^\.travis\.yml$
+
+# github readme file
 ^README\.md$
 
-# produced vignettes
-vignettes/*\.html
-vignettes/*\.pdf
+# DALY Calculator manual
+-manual/
