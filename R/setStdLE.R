@@ -2,15 +2,21 @@
 ## Update 'LE' and '.LE'
 
 setStdLE <-
-function() {
-  if (DALYtclvalue("stdLEtab") == "GBD1990") {
+function(table = NULL) {
+  if (is.null(table)) {
+    table <- DALYtclvalue("stdLEtab")
+  }
+
+  table <- match.arg(table, c("GBD2010", "GBD1990", "WHO/GHE"))
+
+  if (table == "GBD1990") {
     stdM <- DALYget("stdM")
     stdF <- DALYget("stdF")
 
-  } else if (DALYtclvalue("stdLEtab") == "GBD2010") {
+  } else if (table == "GBD2010") {
     stdM <- stdF <- DALYget("stdGBD")
 
-  } else if (DALYtclvalue("stdLEtab") == "WHO/GHE") {
+  } else if (table == "WHO/GHE") {
     stdM <- stdF <- DALYget("stdWHO")
   }
 
@@ -19,4 +25,5 @@ function() {
     DALYassign("LE", stdF[i], i, 2)
   }
   DALYupdate(".LE")
+  DALYupdate("stdLEtab", table)
 }
