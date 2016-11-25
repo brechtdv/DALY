@@ -10,7 +10,7 @@
 
 \usage{DALYmanual()}
 
-\author{\email{Brecht.Devleesschauwer@UGent.be}}
+\author{\email{brechtdv@gmail.com}}
 
 \seealso{
   \code{\link{DALYcalculator}}

@@ -119,7 +119,7 @@ sensitivity(x, method = c("src", "pcc"), rank = FALSE, mapped = TRUE)
   }
 }
 
-\author{\email{Brecht.Devleesschauwer@UGent.be}}
+\author{\email{brechtdv@gmail.com}}
 
 \seealso{
   Package \pkg{sensitivity} (\url{https://cran.r-project.org/package=sensitivity}), for more advanced sensitivity analysis methods.\cr

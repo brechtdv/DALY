@@ -41,7 +41,7 @@
   \item{pct }{Vector of contribution of YLDs and YLLs to overall DALYs}
 }
 
-\author{\email{Brecht.Devleesschauwer@UGent.be}}
+\author{\email{brechtdv@gmail.com}}
 
 \seealso{
   \code{\link{print.DALY}},

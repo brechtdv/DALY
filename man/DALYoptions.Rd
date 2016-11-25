@@ -25,7 +25,7 @@
   }
 }
 
-\author{\email{Brecht.Devleesschauwer@UGent.be}}
+\author{\email{brechtdv@gmail.com}}
 
 \seealso{
   The numerical output methods for class \code{'DALY'}: \code{\link{print.DALY}}, \code{\link{summary.DALY}}\cr

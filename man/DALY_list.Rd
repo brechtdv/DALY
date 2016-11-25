@@ -52,7 +52,7 @@ DALY_list(\dots)
   An object of S3 class \code{'DALY_list'}.
 }
 
-\author{\email{Brecht.Devleesschauwer@UGent.be}}
+\author{\email{brechtdv@gmail.com}}
 
 \seealso{
   \code{\link{getDALY}}\cr

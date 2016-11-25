@@ -33,7 +33,7 @@
   limits and central tendency are printed above the histogram.
 }
 
-\author{\email{Brecht.Devleesschauwer@UGent.be}}
+\author{\email{brechtdv@gmail.com}}
 
 \seealso{
   \code{\link{plot.DALY}}\cr
