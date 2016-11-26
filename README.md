@@ -4,7 +4,7 @@
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/DALY)](http://cran.r-project.org/package=DALY)
 [![Cranlogs Downloads](http://cranlogs.r-pkg.org/badges/grand-total/DALY)](http://cran.r-project.org/package=DALY)
 
-The DALY Calculator is a free, open-source Graphical User Interface for stochastic disability-adjusted life year (DALY) calculation, developed in the R environment for statistical computing.
+The DALY Calculator is a free, open-source Graphical User Interface for probabilistic disability-adjusted life year (DALY) calculation, developed in the R environment for statistical computing.
 
 The main goal of the DALY Calculator is to provide a flexible and easy-to-use tool for DALY calculation and to promote consistency in DALY uncertainty analysis.
 
