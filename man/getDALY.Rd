@@ -68,6 +68,7 @@
 
 ##= load the NCC example ==================================
 setDALYexample(1)
+setStdLE("GBD1990")
 
 ##= perform DALY calculation  =============================
 ##= without age weighting and time discounting ============

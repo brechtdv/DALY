@@ -58,6 +58,7 @@
 
 ##= load the NCC example ==================================
 setDALYexample(1)
+setStdLE("GBD1990")
 
 ##= perform DALY calculation, store results in 'x' ========
 x <- getDALY()

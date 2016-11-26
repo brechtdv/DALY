@@ -58,7 +58,7 @@ sensitivity(x, method = c("src", "pcc"), rank = FALSE, mapped = TRUE)
   
   Specifying \code{method = "src"} will perform a linear regression-based
   sensitivity analysis. Here, the simulated overall DALY estimates will be
-  regressed against the simulated values for the stochastic input parameters
+  regressed against the simulated values for the probabilistic input parameters
   (using \code{\link{lm}}). To facilitate comparison, the independent terms
   are standardized such that they are normally distributed with mean zero and
   standard deviation one (using \code{\link{scale}}). The resulting regression
@@ -134,6 +134,7 @@ sensitivity(x, method = c("src", "pcc"), rank = FALSE, mapped = TRUE)
 
 ##= load NCC example ======================================
 setDALYexample(1)
+setStdLE("GBD1990")
 
 ##= perform DALY calculation, store results in 'x' ========
 x <- getDALY()

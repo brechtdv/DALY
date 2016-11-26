@@ -71,6 +71,7 @@ DALY_list(\dots)
 
 ##= load NCC example ======================================
 setDALYexample(1)
+setStdLE("GBD1990")
 
 ##= calculate DALYs under different scenarios =============
 ncc_00 <- getDALY(aw = FALSE, dr = 0)
